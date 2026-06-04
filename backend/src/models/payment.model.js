@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "../config/db.js";
 
 const paymentSchema = new mongoose.Schema({
   slotRequestId: { type: mongoose.Schema.Types.ObjectId, ref: "SlotRequest", required: true },

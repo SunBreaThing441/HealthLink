@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "../config/db.js";
 
 const slotRequestSchema = new mongoose.Schema({
   doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
@@ -8,7 +8,7 @@ const slotRequestSchema = new mongoose.Schema({
   date: { type: String, required: true },
   time: { type: String, required: true },
   fee: { type: Number, required: true },
-  status: { type: String, enum: ["pending", "accepted", "rejected"], default: "pending" },
+  status: { type: String, enum: ["pending", "accepted", "rejected", "completed"], default: "pending" },
   paymentStatus: { type: String, enum: ["unpaid", "paid"], default: "unpaid" },
 }, { timestamps: true });
 

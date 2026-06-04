@@ -1,5 +1,5 @@
 // models/chat.model.js
-import mongoose from "mongoose";
+import mongoose from "../config/db.js";
 
 const chatSchema = new mongoose.Schema({
   participants: [{

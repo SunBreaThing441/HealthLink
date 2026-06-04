@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "../config/db.js";
 
 const slotSchema = new mongoose.Schema({
   time: { type: String, required: true },

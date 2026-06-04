@@ -284,6 +284,7 @@ const useDoctorAuthStore = create((set, get) => ({
       const url = `${API_URL}/doctor`;
 
       const response = await axiosInstance.get(url, {
+        params,
         withCredentials: true
       });
 
@@ -313,7 +314,7 @@ const useDoctorAuthStore = create((set, get) => ({
     set({ isFetchingDoctor: true, error: null });
     try {
       const response = await axiosInstance.get(
-        `${API_URL}/doctor/doctors/${doctorId}`,
+        `${API_URL}/doctor/${doctorId}`,
         { withCredentials: true }
       );
 

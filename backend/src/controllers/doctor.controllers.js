@@ -1,4 +1,6 @@
 import Doctor from "../models/doctor.models.js";
+import SlotRequest from "../models/slotRequest.model.js";
+import Schedule from "../models/schedule.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -405,6 +407,135 @@ const getDoctorById = asyncHandler(async (req, res) => {
   }
 });
 
+const getDoctorAppointments = asyncHandler(async (req, res) => {
+  const doctorId = req.doctor?._id;
+  if (!doctorId) {
+    throw new ApiError(401, "Doctor authentication required");
+  }
+
+  const { status } = req.query;
+
+  const filter = { doctorId };
+  if (status && status !== 'all') {
+    if (status === 'confirmed') {
+      filter.status = 'accepted';
+    } else if (status === 'cancelled') {
+      filter.status = 'rejected';
+    } else {
+      filter.status = status;
+    }
+  }
+
+  const slotRequests = await SlotRequest.find(filter)
+    .populate({
+      path: 'patientId',
+      model: 'Client',
+      select: 'name email phone avatar age gender'
+    })
+    .sort({ createdAt: -1 });
+
+  const appointments = slotRequests.map(reqObj => {
+    let startTime;
+    try {
+      const parsedDate = new Date(`${reqObj.date} ${reqObj.time}`);
+      if (isNaN(parsedDate.getTime())) {
+        startTime = new Date(reqObj.date).toISOString();
+      } else {
+        startTime = parsedDate.toISOString();
+      }
+    } catch (err) {
+      startTime = new Date(reqObj.date || Date.now()).toISOString();
+    }
+
+    return {
+      _id: reqObj._id,
+      clientId: {
+        _id: reqObj.patientId?._id || null,
+        name: reqObj.patientId?.name || "Unknown Patient",
+        email: reqObj.patientId?.email || "N/A",
+        phone: reqObj.patientId?.phone || "N/A",
+        avatar: reqObj.patientId?.avatar || "",
+        age: reqObj.patientId?.age || null,
+        gender: reqObj.patientId?.gender || "Other"
+      },
+      slotId: {
+        startTime: startTime
+      },
+      status: reqObj.status === 'accepted' ? 'confirmed' : (reqObj.status === 'rejected' ? 'cancelled' : reqObj.status),
+      notes: "Slot Request Fee: INR " + reqObj.fee
+    };
+  });
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      { appointments },
+      "Doctor appointments retrieved successfully"
+    )
+  );
+});
+
+const updateDoctorAppointmentStatus = asyncHandler(async (req, res) => {
+  const { appointmentId } = req.params;
+  const { status } = req.body; // 'confirmed', 'completed', or 'cancelled'
+  
+  const doctorId = req.doctor?._id;
+  if (!doctorId) {
+    throw new ApiError(401, "Doctor authentication required");
+  }
+
+  const validStatuses = ['confirmed', 'completed', 'cancelled'];
+  if (!validStatuses.includes(status)) {
+    throw new ApiError(400, "Invalid status updated");
+  }
+
+  const slotRequest = await SlotRequest.findById(appointmentId);
+  if (!slotRequest) {
+    throw new ApiError(404, "Appointment slot request not found");
+  }
+
+  if (slotRequest.doctorId.toString() !== doctorId.toString()) {
+    throw new ApiError(403, "You do not have permission to update this appointment");
+  }
+
+  const schedule = await Schedule.findById(slotRequest.scheduleId);
+  if (!schedule) {
+    throw new ApiError(404, "Associated schedule not found");
+  }
+
+  const slot = schedule.slots[slotRequest.slotIndex];
+  if (!slot) {
+    throw new ApiError(400, "Invalid slot index associated");
+  }
+
+  if (status === 'confirmed') {
+    slotRequest.status = 'accepted';
+    slotRequest.paymentStatus = 'unpaid';
+    slot.isBooked = true;
+    slot.bookedBy = slotRequest.patientId;
+  } else if (status === 'cancelled') {
+    slotRequest.status = 'rejected';
+    slot.isBooked = false;
+    slot.bookedBy = null;
+    slot.requestId = null;
+  } else if (status === 'completed') {
+    slotRequest.status = 'completed';
+    slot.isBooked = true;
+    slot.bookedBy = slotRequest.patientId;
+  }
+
+  await slotRequest.save();
+  await schedule.save();
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      { slotRequest },
+      `Appointment status updated to ${status} successfully`
+    )
+  );
+});
+
 // Export the new functions along with existing ones
 export {
   registerDoctor,
@@ -415,6 +546,8 @@ export {
   refreshAccessToken,
   getCurrentDoctor,
   updateDoctor,
-  getAllDoctors,    // New function
-  getDoctorById,    // New function
+  getAllDoctors,
+  getDoctorById,
+  getDoctorAppointments,
+  updateDoctorAppointmentStatus,
 };

@@ -1,8 +1,5 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-// Load environment variables
-dotenv.config();
+import 'dotenv/config';
+import mongoose from './src/config/db.js';
 
 // Import all models
 import Client from './src/models/client.model.js';
@@ -16,10 +13,10 @@ import Video from './src/models/video.model.js';
 
 const clearDatabase = async () => {
     try {
-        // Connect to MongoDB
-        console.log('Connecting to MongoDB...');
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log('✅ Connected to MongoDB\n');
+        // Connect to PostgreSQL
+        console.log('Connecting to PostgreSQL...');
+        await mongoose.connect();
+        console.log('✅ Connected to PostgreSQL\n');
 
         // Clear all collections
         console.log('🗑️  Clearing database collections...\n');

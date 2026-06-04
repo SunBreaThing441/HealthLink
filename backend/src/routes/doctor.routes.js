@@ -10,7 +10,9 @@ import {
   getCurrentDoctor,
   updateDoctor,
   getAllDoctors,
-  getDoctorById
+  getDoctorById,
+  getDoctorAppointments,
+  updateDoctorAppointmentStatus
 } from '../controllers/doctor.controllers.js'
 import { upload } from '../middlewares/multer.middleware.js';
 import { isAuthenticated } from '../middlewares/auth.middleware.js'
@@ -25,6 +27,9 @@ router.post('/logout', isAuthenticated, logoutDoctor);
 router.post('/refresh-token', refreshAccessToken);
 router.get('/me', isAuthenticated, getCurrentDoctor);
 router.patch('/update', isAuthenticated, upload.single('avatar'), updateDoctor);
+router.get('/appointments', isAuthenticated, getDoctorAppointments);
+router.patch('/appointments/:appointmentId/status', isAuthenticated, updateDoctorAppointmentStatus);
+
 router.route("/").get(getAllDoctors);
 router.route("/:id").get(getDoctorById);
 
