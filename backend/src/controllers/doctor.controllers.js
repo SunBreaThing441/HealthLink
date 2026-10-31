@@ -66,7 +66,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
     transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Your OTP for MediConnect Verification",
+      subject: "Your OTP for HealthLink Verification",
       html: `<p>Your OTP is: <strong>${otp}</strong></p><p>This OTP is valid for 5 minutes.</p>`,
     }).catch((err) => {
       console.warn("⚠️ Email OTP failed (non-fatal):", err.message);

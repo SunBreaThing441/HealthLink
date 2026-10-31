@@ -102,6 +102,45 @@ const Services = () => {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Doctor & Patient Pictorial Consultation Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-16 relative rounded-3xl overflow-hidden shadow-2xl border border-blue-100 dark:border-slate-800"
+        >
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('/images/consultation-doctor-patient.jpg')` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-900/85 to-transparent lg:to-blue-900/30" />
+          
+          <div className="relative z-10 p-8 sm:p-12 lg:p-16 max-w-2xl text-white">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Human-Centered Medicine
+            </div>
+            <h3 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight">
+              Real Care Between Real Doctors & Patients
+            </h3>
+            <p className="text-blue-100 text-base sm:text-lg mb-8 leading-relaxed">
+              Experience the comfort of dedicated clinical attention. Whether via instant encrypted telemedicine or clinical scheduling, HealthLink puts the doctor-patient relationship first.
+            </p>
+            <div className="flex flex-wrap gap-6 items-center">
+              <a
+                href="#contact"
+                className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all"
+              >
+                Schedule Consultation
+              </a>
+              <span className="text-sm text-blue-200 font-medium">
+                ⭐ 4.9/5 Average Patient Rating Across 15,000+ Reviews
+              </span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

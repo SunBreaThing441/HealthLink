@@ -74,7 +74,7 @@ const registerClient = asyncHandler(async (req, res) => {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Your OTP for MediConnect Verification",
+      subject: "Your OTP for HealthLink Verification",
       html: `<p>Your OTP is: <strong>${otp}</strong></p><p>This OTP is valid for 5 minutes.</p>`,
     });
   } catch (mailErr) {

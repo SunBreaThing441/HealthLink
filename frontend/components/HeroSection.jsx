@@ -66,10 +66,10 @@ const HeroSection = () => {
     const isDarkTheme = theme === 'dark';
     
     const colors = {
-      primary: new THREE.Color(isDarkTheme ? '#2563eb' : '#0056b3'),    // Deep blue
-      secondary: new THREE.Color(isDarkTheme ? '#3b82f6' : '#00a0e3'),  // Lighter blue
-      accent: new THREE.Color(isDarkTheme ? '#1d4ed8' : '#e0f7fa'),     // Very light cyan / darker blue
-      highlight: new THREE.Color(isDarkTheme ? '#60a5fa' : '#80deea')   // Light cyan / lighter blue
+      primary: new THREE.Color(isDarkTheme ? '#2563eb' : '#1d4ed8'),    // 30% Deep Blue
+      secondary: new THREE.Color(isDarkTheme ? '#3b82f6' : '#2563eb'),  // Blue
+      accent: new THREE.Color(isDarkTheme ? '#10b981' : '#059669'),     // 10% Emerald/Green Accent
+      highlight: new THREE.Color(isDarkTheme ? '#34d399' : '#10b981')   // Green Accent highlight
     };
     
     // Main sphere - more refined
@@ -407,88 +407,157 @@ const HeroSection = () => {
   }, [isVisible]);
   
   return (
-    <section ref={sectionRef} id="home" className="relative h-screen flex items-center overflow-hidden">
-      <canvas ref={canvasRef} className="absolute inset-0 z-0"></canvas>
+    <section ref={sectionRef} id="home" className="relative min-h-[92vh] flex items-center overflow-hidden">
+      {/* Pictorial Background: Doctor and Patient in Modern Clinic */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-right md:bg-center transition-all duration-700"
+        style={{ backgroundImage: `url('/images/hero-doctor-patient.jpg')` }}
+      />
       
-      {/* Adjust gradient overlay based on theme */}
-      <div className={`absolute inset-0 ${
+      {/* 60% White / Light Gradient Overlay for crisp contrast & clinical clarity */}
+      <div className={`absolute inset-0 z-0 transition-colors duration-300 ${
         theme === 'dark' 
-          ? 'bg-gradient-to-r from-gray-900/60 via-gray-900/40 to-gray-900/30' 
-          : 'bg-gradient-to-r from-gray-900/40 via-gray-900/20 to-gray-900/10'
-      } z-0`}></div>
+          ? 'bg-gradient-to-r from-slate-950/95 via-slate-900/90 to-slate-900/40 backdrop-blur-[1px]' 
+          : 'bg-gradient-to-r from-white via-white/92 to-white/40 lg:from-white/95 lg:via-white/85 lg:to-blue-50/20'
+      }`} />
       
-      <div className="container mx-auto px-6 z-10 relative">
-        <div className="max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <motion.span 
-              className={`inline-block ${
-                theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-              } font-semibold mb-3 text-lg tracking-wide transition-colors duration-300`}
-            >
-              Welcome to MediConnect
-            </motion.span>
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            className={`text-4xl md:text-6xl font-bold ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            } mb-6 leading-tight transition-colors duration-300`}
-          >
-            Connecting You With Healthcare Professionals
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-            className={`text-xl ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-            } mb-8 leading-relaxed transition-colors duration-300`}
-          >
-            Schedule appointments with qualified doctors online, anytime, anywhere.
-          </motion.p>
-          
-          <div className="flex flex-wrap gap-4">
-            <motion.button 
-              initial={{ opacity: 0, y: 30 }}
+      {/* Three.js interactive 3D mesh */}
+      <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none opacity-60"></canvas>
+      
+      <div className="container mx-auto px-6 z-10 relative py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
-              whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-              whileTap={{ scale: 0.98 }}
-              className={`${
-                theme === 'dark' 
-                  ? 'bg-blue-600 hover:bg-blue-700' 
-                  : 'bg-blue-600 hover:bg-blue-700'
-              } text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition-all duration-300`}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              Find a Doctor
-            </motion.button>
+              <motion.span 
+                className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-semibold mb-4 tracking-wide shadow-sm ${
+                  theme === 'dark' 
+                    ? 'bg-blue-950/80 border border-blue-800 text-blue-300' 
+                    : 'bg-blue-50 border border-blue-200 text-blue-700'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Welcome to <span className="font-bold text-blue-600">Health</span><span className="font-bold text-emerald-600">Link</span>
+              </motion.span>
+            </motion.div>
             
-            <motion.button 
+            <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
-              whileHover={{ 
-                scale: 1.05, 
-                backgroundColor: theme === 'dark' ? 'rgba(30, 41, 59, 0.8)' : 'rgba(255, 255, 255, 0.9)', 
-                transition: { duration: 0.2 } 
-              }}
-              whileTap={{ scale: 0.98 }}
-              className={`${
-                theme === 'dark'
-                  ? 'bg-slate-800 text-blue-400 border-2 border-blue-500'
-                  : 'bg-white text-blue-600 border-2 border-blue-600'
-              } font-bold py-3 px-8 rounded-lg shadow-md transform transition-all duration-300`}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className={`text-4xl sm:text-5xl lg:text-6xl font-bold ${
+                theme === 'dark' ? 'text-white' : 'text-slate-900'
+              } mb-6 leading-tight transition-colors duration-300`}
             >
-              Learn More
-            </motion.button>
+              Connecting You With <span className="text-blue-600">Healthcare</span> <span className="text-emerald-600">Professionals</span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+              className={`text-lg sm:text-xl ${
+                theme === 'dark' ? 'text-gray-300' : 'text-slate-600'
+              } mb-8 leading-relaxed transition-colors duration-300`}
+            >
+              Experience seamless doctor-patient consultations, instant appointment booking, and encrypted telemedicine from the comfort of your home.
+            </motion.p>
+            
+            <div className="flex flex-wrap gap-4 mb-8">
+              <motion.a 
+                href="#services"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
+                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-8 rounded-xl shadow-lg shadow-blue-600/25 transform transition-all duration-300 inline-flex items-center gap-2"
+              >
+                <span>Find a Doctor</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+              </motion.a>
+              
+              <motion.a 
+                href="#about"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
+                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                whileTap={{ scale: 0.98 }}
+                className={`${
+                  theme === 'dark'
+                    ? 'bg-slate-800/90 text-blue-300 border border-slate-700 hover:bg-slate-800'
+                    : 'bg-white text-blue-700 border-2 border-blue-600 hover:bg-blue-50/50'
+                } font-semibold py-3.5 px-8 rounded-xl shadow-sm transform transition-all duration-300 inline-flex items-center gap-2`}
+              >
+                Learn More
+              </motion.a>
+            </div>
+
+            {/* Quick trust metrics */}
+            <div className="pt-4 border-t border-slate-200/80 dark:border-slate-800 flex items-center gap-6 sm:gap-10 text-sm">
+              <div>
+                <span className="block text-2xl font-bold text-blue-600">500+</span>
+                <span className="text-slate-500">Verified Doctors</span>
+              </div>
+              <div className="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
+              <div>
+                <span className="block text-2xl font-bold text-emerald-600">98%</span>
+                <span className="text-slate-500">Positive Outcomes</span>
+              </div>
+              <div className="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
+              <div>
+                <span className="block text-2xl font-bold text-slate-800 dark:text-white">24/7</span>
+                <span className="text-slate-500">Care Coverage</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Floating Clinical Cards highlighting Doctor & Patient */}
+          <div className="hidden lg:flex lg:col-span-5 flex-col gap-4 items-end">
+            <motion.div 
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="bg-white/95 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-blue-100 dark:border-slate-800 max-w-xs"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 text-xl font-bold">
+                  👨‍⚕️
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-900 dark:text-white">Dr. Sarah Jenkins</h4>
+                  <p className="text-xs text-slate-500">Cardiology Specialist</p>
+                  <div className="flex items-center gap-1 mt-1 text-xs text-emerald-600 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Available for consult
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="bg-white/95 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-emerald-100 dark:border-slate-800 max-w-xs"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 flex items-center justify-center text-emerald-600 text-xl font-bold">
+                  🤝
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-900 dark:text-white">Patient Consultation</h4>
+                  <p className="text-xs text-slate-500">Real-time vitals & records</p>
+                  <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">
+                    Active Session
+                  </span>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

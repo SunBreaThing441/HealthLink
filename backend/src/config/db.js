@@ -1,11 +1,29 @@
 import pg from 'pg';
 import crypto from 'crypto';
+import { newDb } from 'pg-mem';
 
 const rawUri = (process.env.DATABASE_URL || "").trim();
 
-const pool = new pg.Pool({
-  connectionString: rawUri
+let activePool = null;
+if (rawUri) {
+  activePool = new pg.Pool({
+    connectionString: rawUri,
+    connectionTimeoutMillis: 5000,
+  });
+}
+
+const pool = new Proxy({}, {
+  get(target, prop) {
+    if (!activePool) {
+      const memDb = newDb();
+      const memPg = memDb.adapters.createPg();
+      activePool = new memPg.Pool();
+    }
+    const val = activePool[prop];
+    return typeof val === 'function' ? val.bind(activePool) : val;
+  }
 });
+
 
 // Mock Mongoose setup
 const registeredModels = {};
@@ -590,11 +608,28 @@ const mongoose = {
 const tables = ['client', 'doctor', 'chat', 'message', 'video', 'schedule', 'slotrequest', 'payment', 'medicine'];
 
 const connectDB = async () => {
-  try {
-    const client = await pool.connect();
-    console.log(`\n✅ PostgreSQL Connected to DB host: ${client.host || 'PostgreSQL'}`);
-    client.release();
+  let connected = false;
+  if (activePool) {
+    try {
+      const client = await activePool.connect();
+      console.log(`\n✅ PostgreSQL Connected to DB host: ${client.host || 'PostgreSQL'}`);
+      client.release();
+      connected = true;
+    } catch (err) {
+      console.warn("⚠️ Failed to connect to DATABASE_URL:", err.message);
+      console.log("🔄 Falling back to in-memory PostgreSQL engine (pg-mem)...");
+      const memDb = newDb();
+      const memPg = memDb.adapters.createPg();
+      activePool = new memPg.Pool();
+    }
+  } else {
+    const memDb = newDb();
+    const memPg = memDb.adapters.createPg();
+    activePool = new memPg.Pool();
+    console.log("\n✅ In-Memory PostgreSQL (pg-mem) initialized successfully!");
+  }
 
+  try {
     for (const table of tables) {
       await pool.query(`
         CREATE TABLE IF NOT EXISTS ${table} (
@@ -605,14 +640,18 @@ const connectDB = async () => {
         )
       `);
       
-      await pool.query(`CREATE INDEX IF NOT EXISTS idx_${table}_data ON ${table} USING gin (data)`);
+      try {
+        await pool.query(`CREATE INDEX IF NOT EXISTS idx_${table}_data ON ${table} USING gin (data)`);
+      } catch (idxErr) {
+        // Index notice non-fatal
+      }
     }
 
     console.log("✅ All PostgreSQL tables verified/created successfully!");
     return mongoose.connection;
   } catch (err) {
     console.error("❌ PostgreSQL connection Error:", err.message);
-    process.exit(1);
+    throw err;
   }
 };
 

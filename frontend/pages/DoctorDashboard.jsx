@@ -73,8 +73,8 @@ const DoctorDashboard = () => {
             transition={{ delay: 1, duration: 0.8 }}
             className="flex items-center justify-center"
           >
-            <span className="text-7xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-              MediConnect
+            <span className="text-7xl font-bold bg-gradient-to-r from-blue-600 via-sky-600 to-emerald-500 bg-clip-text text-transparent">
+              HealthLink
             </span>
           </motion.div>
           <motion.p
@@ -152,19 +152,31 @@ const DoctorDashboard = () => {
 
       {/* Main Content */}
       <div className="pt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        {/* Header Section */}
+        {/* Pictorial Clinical Practice Banner */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-8"
+          className="relative rounded-3xl overflow-hidden mb-8 shadow-xl border border-blue-100 dark:border-slate-800"
         >
-          <h1 className={`text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-            Doctor Dashboard
-          </h1>
-          <p className={`text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-            Welcome back! Here's what's happening with your practice today.
-          </p>
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('/images/clinic-doctor-patient.jpg')` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-900/85 to-transparent lg:to-blue-950/40" />
+          
+          <div className="relative z-10 p-8 sm:p-10 max-w-xl text-white">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3 bg-blue-500/20 text-blue-300 border border-blue-400/30">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Doctor Clinical Cockpit • HealthLink
+            </span>
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2">
+              Doctor Clinical Practice
+            </h1>
+            <p className="text-blue-100 text-sm sm:text-base leading-relaxed">
+              Review today's appointments, engage in high-definition video calls, and consult with your registered patients.
+            </p>
+          </div>
         </motion.div>
 
         {/* Quick Stats */}

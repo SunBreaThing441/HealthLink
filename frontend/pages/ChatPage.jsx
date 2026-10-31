@@ -591,16 +591,18 @@ const ChatPage = () => {
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center bg-[#f0f2f5] border-l border-gray-200">
               <div className="max-w-md text-center">
-                <div className="bg-[#00a884] w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 text-white opacity-90">
+                <div className="bg-gradient-to-tr from-blue-600 to-emerald-500 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 text-white shadow-lg shadow-blue-500/20">
                   <MessageCircle className="w-12 h-12" />
                 </div>
-                <h1 className="text-3xl font-light text-gray-700 mb-4">MediConnect Desktop</h1>
-                <p className="text-[14px] text-gray-500 leading-relaxed mb-8">
+                <h1 className="text-3xl font-light text-slate-800 mb-4">
+                  <span className="font-semibold text-blue-600">Health</span><span className="font-semibold text-emerald-600">Link</span> Desktop
+                </h1>
+                <p className="text-[14px] text-slate-500 leading-relaxed mb-8">
                   Send and receive messages without keeping your phone online.<br />
                   Reach out to your verified contacts for secure health consultations.
                 </p>
-                <div className="flex justify-center text-gray-400 text-sm">
-                  <span className="flex items-center gap-1"><Check className="w-4 h-4" /> End-to-end encrypted</span>
+                <div className="flex justify-center text-emerald-600 text-sm font-medium">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4" /> End-to-end encrypted consultation</span>
                 </div>
               </div>
             </div>

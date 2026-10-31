@@ -43,8 +43,20 @@ const ContactForm = () => {
   const buttonBg = theme === 'dark' ? 'bg-blue-500 hover:bg-blue-600' : 'bg-blue-600 hover:bg-blue-700';
   
   return (
-    <section id="contact" className={`py-16 ${bgColor} transition-colors duration-300`}>
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-20 relative overflow-hidden transition-colors duration-300">
+      {/* Doctor & Patient Clinic Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url('/images/clinic-doctor-patient.jpg')` }}
+      />
+      {/* 60% White/Light Canvas Overlay */}
+      <div className={`absolute inset-0 ${
+        theme === 'dark' 
+          ? 'bg-slate-950/92 backdrop-blur-[2px]' 
+          : 'bg-gradient-to-b from-white/95 via-slate-50/92 to-white/95 backdrop-blur-[2px]'
+      }`} />
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,20 +64,26 @@ const ContactForm = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className={`text-3xl font-bold ${textColor} mb-4`}>Contact Us</h2>
-          <p className={`text-xl ${subTextColor} max-w-2xl mx-auto`}>
-            Have questions or need assistance? Reach out to our team and we'll get back to you as soon as possible.
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3 bg-blue-50 text-blue-700 border border-blue-200">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            Patient Support & Inquiries
+          </div>
+          <h2 className={`text-3xl lg:text-4xl font-bold ${textColor} mb-4`}>
+            Get in Touch With <span className="text-blue-600">Health</span><span className="text-emerald-600">Link</span>
+          </h2>
+          <p className={`text-lg ${subTextColor} max-w-2xl mx-auto`}>
+            Have questions about doctor consultations or your health plan? Reach out to our clinical coordination team.
           </p>
         </motion.div>
         
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <motion.form
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className={`${cardBg} rounded-lg shadow-md p-8 transition-colors duration-300`}
+            className={`${cardBg} rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-700 p-8 sm:p-12 transition-colors duration-300`}
           >
             <div className="mb-6">
               <label htmlFor="name" className={`block ${inputText} font-medium mb-2`}>Name</label>

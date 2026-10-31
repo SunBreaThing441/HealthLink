@@ -39,8 +39,10 @@ const ClientDashboardNavbar = () => {
                             <User className={`h-5 w-5 ${isDark ? 'text-emerald-300' : 'text-emerald-700'}`} />
                         </div>
                         <div className="leading-tight">
-                            <div className="text-base font-semibold tracking-tight">MediConnect</div>
-                            <div className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Client Portal</div>
+                            <div className="text-base font-bold tracking-tight">
+                                <span className="text-blue-600">Health</span><span className="text-emerald-600">Link</span>
+                            </div>
+                            <div className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Patient Portal</div>
                         </div>
                     </Link>
 

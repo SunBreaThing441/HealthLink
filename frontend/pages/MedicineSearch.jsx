@@ -87,11 +87,17 @@ export default function MedicineSearch() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-4">
-            <Pill className="w-10 h-10 text-blue-600 mr-3" />
-            <h1 className="text-4xl font-bold text-gray-800">Medicine Search</h1>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3 bg-blue-50 text-blue-700 border border-blue-200">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            HealthLink Clinical Pharmacy
           </div>
-          <p className="text-gray-600 text-lg">Find detailed information about medicines instantly</p>
+          <div className="flex items-center justify-center mb-3">
+            <Pill className="w-10 h-10 text-blue-600 mr-3" />
+            <h1 className="text-4xl font-bold text-slate-800">
+              <span className="text-blue-600">Medicine</span> <span className="text-emerald-600">Search</span>
+            </h1>
+          </div>
+          <p className="text-slate-600 text-lg">Verified clinical medication catalog & therapeutic details</p>
         </div>
 
         {/* Search Section */}

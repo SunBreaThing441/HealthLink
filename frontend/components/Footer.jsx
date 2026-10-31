@@ -12,46 +12,51 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-semibold mb-4 tracking-tight">MediConnect</h3>
-            <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              Connecting patients with healthcare professionals through an intuitive and secure platform.
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <h3 className="text-xl font-bold tracking-tight text-blue-900 dark:text-white">
+                <span>Health</span><span className="text-emerald-600">Link</span>
+              </h3>
+            </div>
+            <p className={`${isDarkMode ? 'text-gray-400' : 'text-slate-600'} text-sm leading-relaxed`}>
+              Connecting patients with certified healthcare professionals through an intuitive, secure, and modern clinical platform.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-4 tracking-tight">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="#home" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>Home</a></li>
-              <li><a href="#services" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>Services</a></li>
-              <li><a href="#about" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>About Us</a></li>
-              <li><a href="#contact" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>Contact</a></li>
+            <h3 className="text-base font-semibold mb-4 tracking-tight text-blue-900 dark:text-white">Quick Links</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#home" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'} transition-colors`}>Home</a></li>
+              <li><a href="#services" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'} transition-colors`}>Services</a></li>
+              <li><a href="#about" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'} transition-colors`}>About Us</a></li>
+              <li><a href="#contact" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'} transition-colors`}>Contact</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-4 tracking-tight">Support</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>Help Center</a></li>
-              <li><a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>Privacy Policy</a></li>
-              <li><a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>Terms of Service</a></li>
-              <li><a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>FAQs</a></li>
+            <h3 className="text-base font-semibold mb-4 tracking-tight text-blue-900 dark:text-white">Support</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'} transition-colors`}>Help Center</a></li>
+              <li><a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'} transition-colors`}>Privacy Policy</a></li>
+              <li><a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'} transition-colors`}>Terms of Service</a></li>
+              <li><a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'} transition-colors`}>FAQs</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-4 tracking-tight">Contact Info</h3>
-            <ul className={`space-y-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <h3 className="text-base font-semibold mb-4 tracking-tight text-blue-900 dark:text-white">Contact Info</h3>
+            <ul className={`space-y-2 text-sm ${isDarkMode ? 'text-gray-400' : 'text-slate-600'}`}>
               <li>123 Healthcare Blvd</li>
               <li>Medical District, MD 12345</li>
-              <li>info@mediconnect.com</li>
+              <li><a href="mailto:info@healthlink.com" className="text-blue-600 hover:underline">info@healthlink.com</a></li>
               <li>(123) 456-7890</li>
             </ul>
           </div>
         </div>
 
-        <div className={`border-t ${isDarkMode ? 'border-slate-800' : 'border-slate-300'} mt-10 pt-8 flex flex-col md:flex-row justify-between items-center`}>
-          <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} mb-4 md:mb-0`}>
-            &copy; {new Date().getFullYear()} MediConnect. All rights reserved.
+        <div className={`border-t ${isDarkMode ? 'border-slate-800' : 'border-slate-300'} mt-10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm`}>
+          <p className={`${isDarkMode ? 'text-gray-400' : 'text-slate-600'} mb-4 md:mb-0`}>
+            &copy; {new Date().getFullYear()} HealthLink. All rights reserved.
           </p>
           <div className="flex space-x-4">
             <a href="#" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>

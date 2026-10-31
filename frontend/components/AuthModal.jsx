@@ -60,11 +60,23 @@ const AuthModal = ({ isOpen, onClose }) => {
                 </svg>
               </button>
               
-              {/* Modal Header */}
-              <div className="px-6 py-4">
-                <h3 className={`text-2xl font-bold ${theme === 'dark' ? 'text-blue-400' : 'text-primary'}`}>
-                  {authMode === 'login' ? 'Welcome Back' : 'Join MediConnect'}
-                </h3>
+              {/* Modal Banner with Doctor & Patient */}
+              <div className="relative h-28 w-full overflow-hidden rounded-t-2xl">
+                <img 
+                  src="/images/clinic-doctor-patient.jpg" 
+                  alt="Doctor and patient consultation" 
+                  className="w-full h-full object-cover" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent" />
+                <div className="absolute bottom-3 left-6 text-white">
+                  <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold mb-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Verified Clinical Portal
+                  </div>
+                  <h3 className="text-xl font-bold">
+                    {authMode === 'login' ? 'Welcome Back to HealthLink' : 'Join the HealthLink Care Network'}
+                  </h3>
+                </div>
               </div>
               
               {/* User Type Tabs */}

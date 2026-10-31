@@ -1,14 +1,14 @@
 {
-  "name": "mediconnect",
+  "name": "healthlink",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/shreesriv12/MediConnect#readme",
+  "homepage": "https://github.com/shreesriv12/HealthLink#readme",
   "bugs": {
-    "url": "https://github.com/shreesriv12/MediConnect/issues"
+    "url": "https://github.com/shreesriv12/HealthLink/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shreesriv12/MediConnect.git"
+    "url": "git+https://github.com/shreesriv12/HealthLink.git"
   },
   "license": "ISC",
   "author": "",
@@ -37,6 +37,7 @@
     "nodemon": "^3.1.10",
     "openai": "^4.104.0",
     "pg": "^8.21.0",
+    "pg-mem": "^3.0.14",
     "puppeteer": "^24.11.1",
     "razorpay": "^2.9.6",
     "socket.io": "^4.8.1",

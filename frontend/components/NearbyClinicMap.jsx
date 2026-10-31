@@ -341,16 +341,18 @@ const MedicalFacilitiesFinder = () => {
   ];
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="h-screen flex flex-col bg-gradient-to-b from-white via-slate-50 to-blue-50/30">
       {/* Enhanced Header */}
-      <div className="bg-white shadow-xl border-b border-gray-200">
+      <div className="bg-white shadow-md border-b border-gray-200">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
-              <div className="p-2 bg-red-100 rounded-lg">
-                <Hospital className="w-8 h-8 text-red-600" />
+            <h1 className="text-3xl font-bold text-slate-800 flex items-center gap-3">
+              <div className="p-2 bg-blue-50 border border-blue-200 rounded-xl">
+                <Hospital className="w-8 h-8 text-blue-600" />
               </div>
-              Medical Facilities Finder
+              <div>
+                <span className="text-blue-600 font-bold">Health</span><span className="text-emerald-600 font-bold">Link</span> Facilities Finder
+              </div>
             </h1>
             <div className="flex items-center gap-6">
               {/* Enhanced Radius Selector */}

@@ -40,7 +40,9 @@ const DoctorDashboardNavbar = () => {
                             <UserRound className={`h-5 w-5 ${isDark ? 'text-blue-300' : 'text-blue-700'}`} />
                         </div>
                         <div className="leading-tight">
-                            <div className="text-base font-semibold tracking-tight">MediConnect</div>
+                            <div className="text-base font-bold tracking-tight">
+                                <span className="text-blue-600">Health</span><span className="text-emerald-600">Link</span>
+                            </div>
                             <div className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Doctor Portal</div>
                         </div>
                     </Link>

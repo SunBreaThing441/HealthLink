@@ -26,11 +26,15 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 min-h-[72px]">
-            <motion.a href="#home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2">
-              <span className={`p-2 rounded-xl ${isDark ? 'bg-blue-500/20' : 'bg-blue-50'}`}>
-                <Stethoscope className={`w-5 h-5 ${isDark ? 'text-blue-300' : 'text-blue-700'}`} />
+            <motion.a href="#home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2.5">
+              <span className={`p-2 rounded-xl relative ${isDark ? 'bg-blue-500/20' : 'bg-blue-50'}`}>
+                <Stethoscope className={`w-5 h-5 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-emerald-500 rounded-full ring-2 ring-white"></span>
               </span>
-              <span className="text-xl font-semibold tracking-tight">MediConnect</span>
+              <div className="flex items-center">
+                <span className="text-xl font-bold tracking-tight text-blue-900">Health</span>
+                <span className="text-xl font-bold tracking-tight text-emerald-600">Link</span>
+              </div>
             </motion.a>
 
             <div className="hidden md:flex items-center gap-7">

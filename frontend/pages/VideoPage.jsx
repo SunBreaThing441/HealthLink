@@ -648,7 +648,22 @@ function VideoPage() {
                         </div>
                         <div className="rounded-2xl bg-black/40 border border-slate-800 overflow-hidden relative min-h-[280px]">
                             <video ref={remoteVideoRef} autoPlay playsInline className="w-full h-full object-cover" />
-                            <div className="absolute left-3 bottom-3 text-xs bg-black/50 px-2 py-1 rounded">Remote</div>
+                            {callState !== 'in-call' && (
+                              <div 
+                                className="absolute inset-0 bg-cover bg-center flex items-center justify-center"
+                                style={{ backgroundImage: `url('/images/telehealth-doctor-patient.jpg')` }}
+                              >
+                                <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[1px]" />
+                                <div className="relative z-10 text-center p-4">
+                                  <div className="w-12 h-12 rounded-2xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center mx-auto mb-2 text-white">
+                                    <Video className="w-6 h-6 text-emerald-400" />
+                                  </div>
+                                  <p className="text-sm font-semibold text-white">Encrypted Clinical Telehealth</p>
+                                  <p className="text-xs text-slate-300 mt-1">Ready for high-definition doctor & patient consultation</p>
+                                </div>
+                              </div>
+                            )}
+                            <div className="absolute left-3 bottom-3 text-xs bg-black/50 px-2 py-1 rounded z-20">Remote</div>
                         </div>
                     </div>
 
